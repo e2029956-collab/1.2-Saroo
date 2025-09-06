@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive English Workbook - Success Stories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 40px;
+            min-height: 600px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #007bff;
+        }
+        
+        .exercise h3 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .fill-blank {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .fill-blank input {
+            border: none;
+            border-bottom: 2px solid #007bff;
+            padding: 5px 10px;
+            font-size: 1rem;
+            margin: 0 5px;
+            width: 120px;
+        }
+        
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .question-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #28a745;
+        }
+        
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .celebrity-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+        }
+        
+        .celebrity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .celebrity-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .celebrity-info {
+            display: none;
+            background: rgba(255,255,255,0.98);
+            color: #333;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        
+        .celebrity-info.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .celebrity-info h4 {
+            color: #007bff;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .celebrity-info p {
+            margin-bottom: 3px;
+            font-size: 0.85rem;
+        }
+        
+        .guess-sheet {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .guess-input {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .guess-input label {
+            width: 80px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .guess-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        
+        .vocab-section {
+            background: #e8f5e8;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #28a745;
+        }
+        
+        .video-section {
+            background: #e3f2fd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .quiz-question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .quiz-question h4 {
+            color: #2196f3;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 10px;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: #007bff;
+        }
+        
+        .quiz-option.selected {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        
+        .vocab-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .vocab-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-left: 3px solid #28a745;
+            background: #f8f9fa;
+        }
+        
+        .vocab-item strong {
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+        
+        .vocab-item em {
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .collocations {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .discussion-questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .discussion-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .discussion-card h5 {
+            color: #28a745;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        /* Drag and Drop Matching Styles */
+        .matching-exercise {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #28a745;
+        }
+        
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .english-words, .russian-words {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .english-words h5, .russian-words h5 {
+            color: #28a745;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .draggable-word {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .draggable-word:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+        }
+        
+        .draggable-word:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+        
+        .drop-zone {
+            background: white;
+            border: 2px dashed #ddd;
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            min-height: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .drop-zone:hover {
+            border-color: #28a745;
+            background: #f8fff8;
+        }
+        
+        .drop-zone.dragover {
+            border-color: #007bff;
+            background: #e3f2fd;
+            transform: scale(1.02);
+        }
+        
+        .drop-zone.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .drop-zone.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .dropped-word {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+            .celebrity-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Success Stories Workbook</h1>
+            <p>Interactive English Learning Experience</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">📖 Reading Detail</button>
+            <button class="tab" onclick="showTab(1)">😊 Feelings</button>
+            <button class="tab" onclick="showTab(2)">🎭 Celebrity Speed Dating</button>
+            <button class="tab" onclick="showTab(3)">🏠 Saroo's Journey</button>
+        </div>
+        
+        <!-- Tab 1: Reading for Detail -->
+        <div class="tab-content active">
+            <div class="exercise">
+                <h3>📖 Read for Detail</h3>
+                <p>Complete the sentences with no more than <strong>TWO WORDS</strong> from the reading texts about Stephen Hawking and Vera Wang.</p>
+                
+                <div class="fill-blank">
+                    <h4>Complete the sentences:</h4>
+                    <ol>
+                        <li>Stephen Hawking was considered a <input type="text" placeholder=""> genius</li>
+                        <li>Before finding out about his illness, he only studied for <input type="text" placeholder=""> each day</li>
+                        <li>He was told he would live for just <input type="text" placeholder=""> years</li>
+                        <li>He gave a lot of <input type="text" placeholder=""> for his studies</li>
+                        <li>She worked as a <input type="text" placeholder=""> before joining Vogue</li>
+                        <li>In <input type="text" placeholder=""> she was working as an editor</li>
+                        <li>Her personal fortune is thought to be more than <input type="text" placeholder=""></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Feelings -->
+        <div class="tab-content">
+            <div class="exercise">
+                <h3>😊 Feelings Vocabulary</h3>
+                <p><strong>A.</strong> Complete the sentences with adjectives to describe feelings:</p>
+                
+                <div class="fill-blank">
+                    <ol>
+                        <li>Samira was <input type="text" placeholder=""> when the family dog died last year.</li>
+                        <li>They were <input type="text" placeholder=""> by a last-minute winner in what had been a tight game.</li>
+                        <li>I have to admit, I'm <input type="text" placeholder=""> by what I've seen so far.</li>
+                        <li>To be honest, I was just <input type="text" placeholder=""> to see her again after all this time.</li>
+                        <li>I was <input type="text" placeholder=""> to hear about the accident in the town centre.</li>
+                        <li>Maria was <input type="text" placeholder=""> when I told her that I'd crashed the car.</li>
+                        <li>I can't tell you how <input type="text" placeholder=""> I am that my exams are over.</li>
+                        <li>Commuters are getting increasingly <input type="text" placeholder=""> with all of the delays.</li>
+                    </ol>
+                </div>
+                
+                <div class="question-grid">
+                    <div class="question-card">
+                        <h4>Discussion Questions</h4>
+                        <ol>
+                            <li>What do you find overwhelming about your work or studies?</li>
+                            <li>When you feel tense, what do you do to relax?</li>
+                            <li>What are you disgusted by?</li>
+                            <li>When was the last time you were in an awkward situation?</li>
+                            <li>When was the last time you were truly furious about something?</li>
+                            <li>What kind of situations make you feel really frustrated?</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 3: Celebrity Speed Dating -->
+        <div class="tab-content">
+            <div class="exercise">
+                <h3>🎭 Celebrity Speed Dating</h3>
+                <p><strong>Instructions:</strong> Each student picks a number and clicks to reveal their celebrity role. Walk around the class, ask questions, and guess who your classmates are playing!</p>
+                
+                <div class="question-grid">
+                    <div class="question-card">
+                        <h4>🤔 Question Forms to Ask</h4>
+                        <ul>
+                            <li><strong>Could/tell/which country/born?</strong> → Could you tell me which country you were born in?</li>
+                            <li><strong>What/industry/you/work?</strong> → What industry do you work in?</li>
+                            <li><strong>Is/anything/not enjoy/job?</strong> → Is there anything you don't enjoy about your job?</li>
+                            <li><strong>Who/biggest impact/life?</strong> → Who has had the biggest impact on your life?</li>
+                            <li><strong>How/describe/yourself?</strong> → How would you describe yourself?</li>
+                            <li><strong>Would/mind/tell me/biggest regret?</strong> → Would you mind telling me your biggest regret?</li>
+                            <li><strong>Have/met/famous person?</strong> → Have you ever met a famous person?</li>
+                            <li><strong>What/would/say/weakness?</strong> → What would you say is your biggest weakness?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="celebrity-grid">
+                    <div class="celebrity-card" onclick="toggleCelebrity(0)">
+                        <div class="celebrity-number">1</div>
+                        <div class="celebrity-info">
+                            <h4>💪 David Laid</h4>
+                            <p>• Estonian-American fitness model</p>
+                            <p>• Started lifting at 14 after being bullied</p>
+                            <p>• Known for aesthetic physique</p>
+                            <p>• YouTube fitness influencer</p>
+                            <p>• Transformed from skinny to muscular</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(1)">
+                        <div class="celebrity-number">2</div>
+                        <div class="celebrity-info">
+                            <h4>🎵 NEFFEX</h4>
+                            <p>• American music duo</p>
+                            <p>• Electronic/hip-hop genre</p>
+                            <p>• Known for motivational lyrics</p>
+                            <p>• Popular on YouTube/Spotify</p>
+                            <p>• Workout/gaming music</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(2)">
+                        <div class="celebrity-number">3</div>
+                        <div class="celebrity-info">
+                            <h4>📚 Ray Bradbury</h4>
+                            <p>• American science fiction writer</p>
+                            <p>• Wrote "Fahrenheit 451"</p>
+                            <p>• Born in Illinois, 1920</p>
+                            <p>• Never learned to drive</p>
+                            <p>• Feared technology but wrote about it</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(3)">
+                        <div class="celebrity-number">4</div>
+                        <div class="celebrity-info">
+                            <h4>🎸 Andy James</h4>
+                            <p>• British guitarist</p>
+                            <p>• Metal/shred guitar style</p>
+                            <p>• YouTube guitar tutorials</p>
+                            <p>• Self-taught musician</p>
+                            <p>• Known for technical skill</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(4)">
+                        <div class="celebrity-number">5</div>
+                        <div class="celebrity-info">
+                            <h4>🎨 Jean-Michel Basquiat</h4>
+                            <p>• American neo-expressionist artist</p>
+                            <p>• Started as street graffiti artist</p>
+                            <p>• Born in Brooklyn, 1960</p>
+                            <p>• Died young at 27</p>
+                            <p>• Art sells for millions today</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(5)">
+                        <div class="celebrity-number">6</div>
+                        <div class="celebrity-info">
+                            <h4>🎤 Billie Eilish</h4>
+                            <p>• American pop singer</p>
+                            <p>• Started singing at 8 years old</p>
+                            <p>• Won 5 Grammy Awards at 18</p>
+                            <p>• Known for unique style and green hair</p>
+                            <p>• Lives with family, very close relationships</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(6)">
+                        <div class="celebrity-number">7</div>
+                        <div class="celebrity-info">
+                            <h4>🎭 IOWA</h4>
+                            <p>• Russian rock band</p>
+                            <p>• Alternative rock genre</p>
+                            <p>• Popular in Russia and CIS</p>
+                            <p>• Known for emotional lyrics</p>
+                            <p>• Formed in the 2000s</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(7)">
+                        <div class="celebrity-number">8</div>
+                        <div class="celebrity-info">
+                            <h4>👑 Lady Gaga</h4>
+                            <p>• American singer and actress</p>
+                            <p>• Born Stefani Germanotta</p>
+                            <p>• Known for bold fashion choices</p>
+                            <p>• Won Academy Award for "A Star is Born"</p>
+                            <p>• LGBTQ+ rights activist</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(8)">
+                        <div class="celebrity-number">9</div>
+                        <div class="celebrity-info">
+                            <h4>🎹 Charlie Puth</h4>
+                            <p>• American singer-songwriter</p>
+                            <p>• Perfect pitch ability</p>
+                            <p>• Started on YouTube</p>
+                            <p>• Known for "See You Again"</p>
+                            <p>• Producer and pianist</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(9)">
+                        <div class="celebrity-number">10</div>
+                        <div class="celebrity-info">
+                            <h4>🕺 Bruno Mars</h4>
+                            <p>• American singer and performer</p>
+                            <p>• Born Peter Hernandez in Hawaii</p>
+                            <p>• Multi-instrumentalist</p>
+                            <p>• Known for energetic live shows</p>
+                            <p>• Influenced by Michael Jackson</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(10)">
+                        <div class="celebrity-number">11</div>
+                        <div class="celebrity-info">
+                            <h4>🎬 Leonardo DiCaprio</h4>
+                            <p>• American actor and producer</p>
+                            <p>• Environmental activist</p>
+                            <p>• Won Oscar for "The Revenant"</p>
+                            <p>• Never married, dates models</p>
+                            <p>• Started as child actor</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(11)">
+                        <div class="celebrity-number">12</div>
+                        <div class="celebrity-info">
+                            <h4>🏴‍☠️ Johnny Depp</h4>
+                            <p>• American actor</p>
+                            <p>• Known for "Pirates of the Caribbean"</p>
+                            <p>• Eccentric personality</p>
+                            <p>• Musician in bands</p>
+                            <p>• Had legal troubles recently</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(12)">
+                        <div class="celebrity-number">13</div>
+                        <div class="celebrity-info">
+                            <h4>⚡ J.K. Rowling</h4>
+                            <p>• British author</p>
+                            <p>• Wrote Harry Potter series</p>
+                            <p>• Was a single mother on welfare</p>
+                            <p>• Became billionaire from books</p>
+                            <p>• Wrote in Edinburgh cafés</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(13)">
+                        <div class="celebrity-number">14</div>
+                        <div class="celebrity-info">
+                            <h4>🌻 Vincent van Gogh</h4>
+                            <p>• Dutch post-impressionist painter</p>
+                            <p>• Struggled with mental illness</p>
+                            <p>• Only sold one painting while alive</p>
+                            <p>• Cut off his own ear</p>
+                            <p>• Art is now worth millions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="celebrity-card" onclick="toggleCelebrity(14)">
+                        <div class="celebrity-number">15</div>
+                        <div class="celebrity-info">
+                            <h4>🎪 Salvador Dalí</h4>
+                            <p>• Spanish surrealist artist</p>
+                            <p>• Known for melting clocks painting</p>
+                            <p>• Had distinctive mustache</p>
+                            <p>• Eccentric personality</p>
+                            <p>• Lived in Spain and France</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guess-sheet">
+                    <h4>🕵️ Your Guesses</h4>
+                    <p>Write down your guesses for each student's celebrity:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">
+                        <div class="guess-input">
+                            <label>Student 1:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                        <div class="guess-input">
+                            <label>Student 2:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                        <div class="guess-input">
+                            <label>Student 3:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                        <div class="guess-input">
+                            <label>Student 4:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                        <div class="guess-input">
+                            <label>Student 5:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                        <div class="guess-input">
+                            <label>Student 6:</label>
+                            <input type="text" placeholder="Celebrity name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 4: Saroo's Journey -->
+        <div class="tab-content">
+            <div class="exercise">
+                <h3>🏠 Saroo's Journey: Finding Home</h3>
+                
+                <!-- Warm-up Discussion -->
+                <div class="vocab-section">
+                    <h4>📚 Warm-up Discussion</h4>
+                    <p><strong>Work in groups and answer the questions:</strong></p>
+                    <div class="question-grid">
+                        <div class="question-card">
+                            <p>• What do you know about people who were adopted at a young age and returned to search for their biological families? What challenges might they face on this journey?</p>
+                        </div>
+                        <div class="question-card">
+                            <p>• How do you think technologies such as Google Earth can assist in finding family or native places?</p>
+                        </div>
+                        <div class="question-card">
+                            <p>• Think back to when you last used a map or navigation systems to find a specific location. How difficult was it?</p>
+                        </div>
+                        <div class="question-card">
+                            <p>• If you had to find your childhood home after many years, what distinguishing details would you use to try to locate it?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vocabulary Section -->
+                <div class="vocab-section">
+                    <h4>📝 Vocabulary Practice</h4>
+                    <p><strong>Study the words, their parts of speech, definitions and common collocations. Then practice with the exercises below.</strong></p>
+                    
+                    <div class="vocab-list">
+                        <div class="vocab-item">
+                            <strong>Privileged</strong> <em>(adjective)</em> – feeling honored or fortunate to experience or achieve something.
+                            <div class="collocations">Common collocations: privileged position, privileged information, feel privileged</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Destiny</strong> <em>(noun)</em> – a predetermined course of events, often considered to be an unavoidable outcome.
+                            <div class="collocations">Common collocations: fulfill one's destiny, tragic destiny, destiny awaits</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Adoptive</strong> <em>(adjective)</em> – relating to the adoption of a child by parents who are not biologically related.
+                            <div class="collocations">Common collocations: adoptive parents, adoptive family, adoptive child</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Haphazardly</strong> <em>(adverb)</em> – in a random, disorganized, or unplanned manner.
+                            <div class="collocations">Common collocations: scattered haphazardly, arranged haphazardly, done haphazardly</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Strategic</strong> <em>(adjective)</em> – related to carefully planned actions aimed at achieving a specific goal.
+                            <div class="collocations">Common collocations: strategic planning, strategic decision, strategic location</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Approximately</strong> <em>(adverb)</em> – an estimate close to the actual figure or value.
+                            <div class="collocations">Common collocations: approximately equal, last approximately, cost approximately</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Gestimating</strong> <em>(verb/gerund)</em> – informal term, blending guess and estimate, used to indicate an educated guess.
+                            <div class="collocations">Common collocations: gestimating the cost, gestimating the time, rough gestimating</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Radius</strong> <em>(noun)</em> – a line from the center of a circle to any point on its edge.
+                            <div class="collocations">Common collocations: within a radius, radius of curvature, search radius</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Curve</strong> <em>(noun/verb)</em> – a line that deviates from straightness in a smooth, continuous way.
+                            <div class="collocations">Common collocations: sharp curve, learning curve, curve ahead</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Adjacent</strong> <em>(adjective)</em> – next to or adjoining something else.
+                            <div class="collocations">Common collocations: adjacent to, adjacent rooms, adjacent buildings</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Elated</strong> <em>(adjective)</em> – extremely happy or excited.
+                            <div class="collocations">Common collocations: feel elated, absolutely elated, elated by the news</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Surreal</strong> <em>(adjective)</em> – beyond reality, dreamlike, or strange in a way that makes it hard to believe.
+                            <div class="collocations">Common collocations: surreal experience, surreal atmosphere, almost surreal</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Fathom</strong> <em>(verb)</em> – to understand or comprehend something fully.
+                            <div class="collocations">Common collocations: can't fathom, difficult to fathom, fathom the depths</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Gobsmacked</strong> <em>(adjective)</em> – informal British English term for being extremely surprised or shocked.
+                            <div class="collocations">Common collocations: absolutely gobsmacked, left gobsmacked, gobsmacked by</div>
+                        </div>
+                        <div class="vocab-item">
+                            <strong>Unconditional</strong> <em>(adjective)</em> – without any limitations or conditions attached.
+                            <div class="collocations">Common collocations: unconditional love, unconditional support, unconditional surrender</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Drag and Drop Matching Exercise -->
+                    <div class="matching-exercise">
+                        <h4>🔄 Match English words with Russian equivalents:</h4>
+                        <p><strong>Drag the English words to match them with Russian equivalents:</strong></p>
+                        
+                        <div class="matching-container">
+                            <div class="english-words">
+                                <h5>English Words:</h5>
+                                <div class="draggable-word" draggable="true" data-word="privileged">Privileged</div>
+                                <div class="draggable-word" draggable="true" data-word="destiny">Destiny</div>
+                                <div class="draggable-word" draggable="true" data-word="adoptive">Adoptive</div>
+                                <div class="draggable-word" draggable="true" data-word="haphazardly">Haphazardly</div>
+                                <div class="draggable-word" draggable="true" data-word="strategic">Strategic</div>
+                                <div class="draggable-word" draggable="true" data-word="approximately">Approximately</div>
+                                <div class="draggable-word" draggable="true" data-word="radius">Radius</div>
+                                <div class="draggable-word" draggable="true" data-word="curve">Curve</div>
+                                <div class="draggable-word" draggable="true" data-word="adjacent">Adjacent</div>
+                                <div class="draggable-word" draggable="true" data-word="elated">Elated</div>
+                                <div class="draggable-word" draggable="true" data-word="surreal">Surreal</div>
+                                <div class="draggable-word" draggable="true" data-word="fathom">Fathom</div>
+                                <div class="draggable-word" draggable="true" data-word="gobsmacked">Gobsmacked</div>
+                                <div class="draggable-word" draggable="true" data-word="unconditional">Unconditional</div>
+                            </div>
+                            
+                            <div class="russian-words">
+                                <h5>Russian Equivalents:</h5>
+                                <div class="drop-zone" data-answer="surreal">сюрреалистичный, нереальный</div>
+                                <div class="drop-zone" data-answer="privileged">привилегированный, почетный</div>
+                                <div class="drop-zone" data-answer="radius">радиус</div>
+                                <div class="drop-zone" data-answer="gobsmacked">ошеломленный, потрясенный</div>
+                                <div class="drop-zone" data-answer="approximately">приблизительно</div>
+                                <div class="drop-zone" data-answer="elated">восторженный, ликующий</div>
+                                <div class="drop-zone" data-answer="strategic">стратегический</div>
+                                <div class="drop-zone" data-answer="fathom">понимать, постигать</div>
+                                <div class="drop-zone" data-answer="adoptive">приемный (о родителях)</div>
+                                <div class="drop-zone" data-answer="curve">кривая, изгиб</div>
+                                <div class="drop-zone" data-answer="unconditional">безусловный</div>
+                                <div class="drop-zone" data-answer="destiny">судьба, предназначение</div>
+                                <div class="drop-zone" data-answer="adjacent">смежный, прилегающий</div>
+                                <div class="drop-zone" data-answer="haphazardly">беспорядочно, случайно</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="checkMatching()" style="margin-top: 20px;">Check Matching</button>
+                        <div id="matching-results" style="margin-top: 15px; display: none;"></div>
+                    </div>
+                    
+                    <div class="fill-blank">
+                        <h4>Fill in the Blanks:</h4>
+                        <ol>
+                            <li>She felt incredibly <input type="text" placeholder=""> to be invited to speak at the prestigious event.</li>
+                            <li>After missing the last train, he believed it was his <input type="text" placeholder=""> to spend the night in the city.</li>
+                            <li>His <input type="text" placeholder=""> parents gave him all the love and support he needed despite not being biologically related.</li>
+                            <li>The documents were scattered <input type="text" placeholder=""> across the desk, making it hard to find anything.</li>
+                            <li>They developed a <input type="text" placeholder=""> plan to launch their new product by the end of the year.</li>
+                            <li>The meeting will last <input type="text" placeholder=""> two hours, depending on the number of questions.</li>
+                            <li>I wasn't certain about the distance, so I was just <input type="text" placeholder=""> when I said it was ten kilometers.</li>
+                            <li>The circle had a <input type="text" placeholder=""> of five kilometers, covering several neighborhoods.</li>
+                            <li>The road took a sharp <input type="text" placeholder=""> around the mountain, offering breathtaking views of the valley.</li>
+                            <li>The building next to ours is <input type="text" placeholder=""> to a beautiful park.</li>
+                            <li>She was absolutely <input type="text" placeholder=""> when she heard the good news about her promotion.</li>
+                            <li>The experience was so <input type="text" placeholder="">, it felt like a dream.</li>
+                            <li>He couldn't <input type="text" placeholder=""> how they managed to finish the project so quickly.</li>
+                            <li>I was completely <input type="text" placeholder=""> when I saw the surprise party—everyone had done such a great job keeping it a secret.</li>
+                            <li>Their support for her was <input type="text" placeholder="">, always there no matter what she did.</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="discussion-questions">
+                        <div class="discussion-card">
+                            <h5>Privileged</h5>
+                            <p>Can you think of a time when you felt privileged? What made you feel that way?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Destiny</h5>
+                            <p>Do you believe in destiny? Why or why not?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Adoptive</h5>
+                            <p>How do you think relationships between adoptive parents and their children might differ from biological relationships?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Haphazardly</h5>
+                            <p>Describe a situation where something was done haphazardly. What were the consequences?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Strategic</h5>
+                            <p>Why is it important to be strategic when making life or business decisions?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Approximately</h5>
+                            <p>Can you estimate approximately how many hours you spend on your hobbies each week?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Gestimating</h5>
+                            <p>When is it acceptable to be gestimating rather than using precise figures?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Radius</h5>
+                            <p>How would you use the concept of radius in planning a trip or event?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Curve</h5>
+                            <p>Can you explain the difference between a straight road and a curved road in terms of driving difficulty?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Adjacent</h5>
+                            <p>How important is it for your workplace or home to be adjacent to useful amenities? Why?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Elated</h5>
+                            <p>When was the last time you felt truly elated? What happened?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Surreal</h5>
+                            <p>Have you ever experienced a surreal moment in your life? How did it feel?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Fathom</h5>
+                            <p>What is something you find difficult to fathom? Why do you think that is?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Gobsmacked</h5>
+                            <p>What was the last piece of news or event that left you feeling gobsmacked?</p>
+                        </div>
+                        <div class="discussion-card">
+                            <h5>Unconditional</h5>
+                            <p>What does unconditional love mean to you? Can you provide an example?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Section -->
+                <div class="video-section">
+                    <h4>📹 Watch the Video</h4>
+                    <p>Watch Saroo Brierley's story about finding his family using Google Earth and answer the questions below.</p>
+                    <p><em>Video: "Saroo Brierley's Journey: Finding Home"</em></p>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>1. What age was Saroo when he boarded the train looking for his brother?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 1)">a. 3</div>
+                        <div class="quiz-option" onclick="selectOption(this, 1)">b. 5</div>
+                        <div class="quiz-option" onclick="selectOption(this, 1)">c. 10</div>
+                        <div class="quiz-option" onclick="selectOption(this, 1)">d. 7</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>2. How many years later did Saroo begin his search using Google Earth?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 2)">a. 15</div>
+                        <div class="quiz-option" onclick="selectOption(this, 2)">b. 20</div>
+                        <div class="quiz-option" onclick="selectOption(this, 2)">c. 23</div>
+                        <div class="quiz-option" onclick="selectOption(this, 2)">d. 30</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>3. In which city did Saroo initially end up after boarding the train?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 3)">a. Mumbai</div>
+                        <div class="quiz-option" onclick="selectOption(this, 3)">b. Delhi</div>
+                        <div class="quiz-option" onclick="selectOption(this, 3)">c. Calcutta</div>
+                        <div class="quiz-option" onclick="selectOption(this, 3)">d. Bangalore</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>4. What tool did Saroo use on Google Earth to estimate the distance from Calcutta?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 4)">a. The measurement tool</div>
+                        <div class="quiz-option" onclick="selectOption(this, 4)">b. The ruler tool</div>
+                        <div class="quiz-option" onclick="selectOption(this, 4)">c. The distance calculator</div>
+                        <div class="quiz-option" onclick="selectOption(this, 4)">d. The map tool</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>5. What did Saroo remember about the train station he was searching for?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 5)">a. It had a large tower</div>
+                        <div class="quiz-option" onclick="selectOption(this, 5)">b. There was a river nearby</div>
+                        <div class="quiz-option" onclick="selectOption(this, 5)">c. There was an industrial water tank</div>
+                        <div class="quiz-option" onclick="selectOption(this, 5)">d. It was surrounded by mountains</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>6. What did Saroo find when he zoomed out after looking for his hometown?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 6)">a. He found Burhanpur instead of Berampur</div>
+                        <div class="quiz-option" onclick="selectOption(this, 6)">b. He found a completely different country</div>
+                        <div class="quiz-option" onclick="selectOption(this, 6)">c. He discovered a new train station</div>
+                        <div class="quiz-option" onclick="selectOption(this, 6)">d. He found a picture of his childhood home</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>7. What was Saroo's emotional reaction when he found his hometown?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 7)">a. Sadness</div>
+                        <div class="quiz-option" onclick="selectOption(this, 7)">b. Confusion</div>
+                        <div class="quiz-option" onclick="selectOption(this, 7)">c. Elation</div>
+                        <div class="quiz-option" onclick="selectOption(this, 7)">d. Indifference</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>8. Who did Saroo tell about his discovery of his hometown?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 8)">a. His sister</div>
+                        <div class="quiz-option" onclick="selectOption(this, 8)">b. His adoptive parents</div>
+                        <div class="quiz-option" onclick="selectOption(this, 8)">c. His friends</div>
+                        <div class="quiz-option" onclick="selectOption(this, 8)">d. His teacher</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>9. How did Saroo's father react to the news of finding his hometown?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 9)">a. He was skeptical</div>
+                        <div class="quiz-option" onclick="selectOption(this, 9)">b. He was indifferent</div>
+                        <div class="quiz-option" onclick="selectOption(this, 9)">c. He was supportive and amazed</div>
+                        <div class="quiz-option" onclick="selectOption(this, 9)">d. He was angry</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>10. What application did Saroo credit for helping him find his family?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 10)">a. Google Maps</div>
+                        <div class="quiz-option" onclick="selectOption(this, 10)">b. Google Earth</div>
+                        <div class="quiz-option" onclick="selectOption(this, 10)">c. Google Search</div>
+                        <div class="quiz-option" onclick="selectOption(this, 10)">d. Google Street View</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" onclick="checkAnswers()">Check My Answers</button>
+                <div id="results" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px; display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userAnswers = {};
+        let matchingAnswers = {};
+        const correctAnswers = {
+            1: 'b', 2: 'c', 3: 'c', 4: 'b', 5: 'c', 
+            6: 'a', 7: 'c', 8: 'b', 9: 'c', 10: 'b'
+        };
+        
+        function showTab(tabIndex) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            tabContents[tabIndex].classList.add('active');
+            tabs[tabIndex].classList.add('active');
+        }
+        
+        function toggleCelebrity(index) {
+            const celebrityCards = document.querySelectorAll('.celebrity-card');
+            const celebrityInfo = celebrityCards[index].querySelector('.celebrity-info');
+            celebrityInfo.classList.toggle('active');
+        }
+        
+        function selectOption(option, questionNumber) {
+            // Remove selected class from siblings
+            const siblings = option.parentNode.querySelectorAll('.quiz-option');
+            siblings.forEach(sibling => sibling.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+            
+            // Store answer
+            const answerLetter = option.textContent.trim().charAt(0);
+            userAnswers[questionNumber] = answerLetter;
+        }
+        
+        function checkAnswers() {
+            let score = 0;
+            let total = Object.keys(correctAnswers).length;
+            let results = '<h4>Results:</h4>';
+            
+            for (let q = 1; q <= total; q++) {
+                if (userAnswers[q] === correctAnswers[q]) {
+                    score++;
+                    results += `<p style="color: green;">Question ${q}: ✓ Correct</p>`;
+                } else {
+                    results += `<p style="color: red;">Question ${q}: ✗ Incorrect (Correct answer: ${correctAnswers[q]})</p>`;
+                }
+            }
+            
+            results += `<h5>Final Score: ${score}/${total} (${Math.round(score/total*100)}%)</h5>`;
+            
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = results;
+            resultsDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Drag and Drop functionality
+        function initDragAndDrop() {
+            const draggableWords = document.querySelectorAll('.draggable-word');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            draggableWords.forEach(word => {
+                word.addEventListener('dragstart', handleDragStart);
+                word.addEventListener('dragend', handleDragEnd);
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragenter', handleDragEnter);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+            });
+        }
+        
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.word);
+            e.dataTransfer.setData('text/html', e.target.outerHTML);
+            e.target.style.opacity = '0.5';
+        }
+        
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+        
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('dragover');
+        }
+        
+        function handleDragLeave(e) {
+            e.target.classList.remove('dragover');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('dragover');
+            
+            const word = e.dataTransfer.getData('text/plain');
+            const expectedAnswer = e.target.dataset.answer;
+            
+            // Clear previous content
+            const existingWord = e.target.querySelector('.dropped-word');
+            if (existingWord) {
+                existingWord.remove();
+            }
+            
+            // Add the dropped word
+            const droppedWord = document.createElement('div');
+            droppedWord.className = 'dropped-word';
+            droppedWord.textContent = word.charAt(0).toUpperCase() + word.slice(1);
+            e.target.appendChild(droppedWord);
+            
+            // Store the answer
+            matchingAnswers[expectedAnswer] = word;
+            
+            // Remove the word from the English words list
+            const originalWord = document.querySelector(`[data-word="${word}"]`);
+            if (originalWord) {
+                originalWord.style.display = 'none';
+            }
+        }
+        
+        function checkMatching() {
+            const dropZones = document.querySelectorAll('.drop-zone');
+            let correct = 0;
+            let total = dropZones.length;
+            
+            dropZones.forEach(zone => {
+                const expectedAnswer = zone.dataset.answer;
+                const userAnswer = matchingAnswers[expectedAnswer];
+                
+                zone.classList.remove('correct', 'incorrect');
+                
+                if (userAnswer === expectedAnswer) {
+                    zone.classList.add('correct');
+                    correct++;
+                } else if (userAnswer) {
+                    zone.classList.add('incorrect');
+                }
+            });
+            
+            const resultsDiv = document.getElementById('matching-results');
+            const percentage = Math.round((correct / total) * 100);
+            resultsDiv.innerHTML = `
+                <h4>Matching Results:</h4>
+                <p><strong>Score: ${correct}/${total} (${percentage}%)</strong></p>
+                ${percentage >= 80 ? '<p style="color: green;">Excellent work! 🎉</p>' : 
+                  percentage >= 60 ? '<p style="color: orange;">Good job! Keep practicing! 👍</p>' : 
+                  '<p style="color: red;">Keep studying and try again! 📚</p>'}
+            `;
+            resultsDiv.style.display = 'block';
+        }
+        
+        // Add some interactivity to input fields
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#e3f2fd';
+                });
+                input.addEventListener('blur', function() {
+                    this.style.backgroundColor = 'white';
+                });
+            });
+            
+            // Initialize drag and drop
+            initDragAndDrop();
+        });
+    </script>
+</body>
+</html>

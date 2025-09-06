@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English B2 Interactive Workbooks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .workbook-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .workbook-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+        
+        .workbook-title {
+            font-size: 1.8rem;
+            color: #007bff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .workbook-description {
+            color: #6c757d;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .workbook-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .feature-text {
+            font-size: 0.9rem;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .open-button {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .open-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+        }
+        
+        .coming-soon {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            color: #6c757d;
+        }
+        
+        .coming-soon h3 {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .workbook-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 English B2 Workbooks</h1>
+            <p>Interactive Learning Experience</p>
+            <div class="subtitle">Professional Development for Teachers & Students</div>
+        </div>
+        
+        <div class="content">
+            <!-- Unit 1.2: Success Stories -->
+            <div class="workbook-card" onclick="openWorkbook('1.2-Saroo.html')">
+                <div class="workbook-title">🌟 Unit 1.2: Success Stories</div>
+                <div class="workbook-description">
+                    Explore inspiring success stories including Stephen Hawking, Vera Wang, and Saroo Brierley's incredible journey home. This interactive workbook combines reading comprehension, vocabulary practice, celebrity roleplay, and video comprehension.
+                </div>
+                
+                <div class="workbook-features">
+                    <div class="feature">
+                        <div class="feature-icon">📖</div>
+                        <div class="feature-text">Reading Detail<br>Practice</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">😊</div>
+                        <div class="feature-text">Feelings<br>Vocabulary</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎭</div>
+                        <div class="feature-text">Celebrity Speed<br>Dating</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🏠</div>
+                        <div class="feature-text">Saroo's Journey<br>Video & Quiz</div>
+                    </div>
+                </div>
+                
+                <a href="#" class="open-button" onclick="openWorkbook('1.2-Saroo.html'); return false;">
+                    Open Workbook →
+                </a>
+            </div>
+            
+            <!-- Coming Soon Units -->
+            <div class="coming-soon">
+                <h3>🚀 More Units Coming Soon!</h3>
+                <p>Additional interactive workbooks are in development...</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Features:</strong> Interactive exercises, drag & drop activities, instant feedback</p>
+            <p><strong>Level:</strong> B2 (Upper-Intermediate) | <strong>Duration:</strong> 60-90 minutes per unit</p>
+            <p><strong>Compatible:</strong> Desktop, Tablet, Mobile devices</p>
+        </div>
+    </div>
+
+    <script>
+        function openWorkbook(filename) {
+            // Try to open the workbook file
+            try {
+                window.location.href = filename;
+            } catch (error) {
+                // Fallback: show alert with filename
+                alert(`Please open the file: ${filename}\n\nMake sure the workbook file is in the same folder as this index.html file.`);
+            }
+        }
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.workbook-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
