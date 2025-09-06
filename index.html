@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English B2 Interactive Workbooks</title>
     <style>
+        /* Стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -206,9 +207,9 @@
                     </div>
                 </div>
                 
-                <a href="#" class="open-button" onclick="openWorkbook('1.2 Saroo.html'); return false;">
+                <button class="open-button" onclick="openWorkbook('1.2 Saroo.html'); return false;">
                     Open Workbook →
-                </a>
+                </button>
             </div>
             
             <!-- Coming Soon Units -->
@@ -227,16 +228,16 @@
 
     <script>
         function openWorkbook(filename) {
-            // Try to open the workbook file
+            // Попробуем открыть файл напрямую
             try {
-                window.location.href = filename;
+                window.open(filename, '_blank');
             } catch (error) {
-                // Fallback: show alert with filename
-                alert(`Please open the file: ${filename}\n\nMake sure the workbook file is in the same folder as this index.html file.`);
+                // Если не получилось, покажем сообщение
+                alert(`Не удалось открыть файл: ${filename}\n\nУбедитесь, что файл находится в той же папке, что и index.html`);
             }
         }
         
-        // Add some interactive effects
+        // Добавляем интерактивные эффекты
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.workbook-card');
             
