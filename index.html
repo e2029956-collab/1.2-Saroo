@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English B2 Interactive Workbooks</title>
     <style>
-        /* Стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -126,6 +125,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            margin-top: 20px;
         }
         
         .open-button:hover {
@@ -182,7 +182,7 @@
         
         <div class="content">
             <!-- Unit 1.2: Success Stories -->
-            <div class="workbook-card" onclick="openWorkbook('1.2 Saroo.html')">
+            <div class="workbook-card" onclick="openWorkbook()">
                 <div class="workbook-title">🌟 Unit 1.2: Success Stories</div>
                 <div class="workbook-description">
                     Explore inspiring success stories including Stephen Hawking, Vera Wang, and Saroo Brierley's incredible journey home. This interactive workbook combines reading comprehension, vocabulary practice, celebrity roleplay, and video comprehension.
@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 
-                <button class="open-button" onclick="openWorkbook('1.2 Saroo.html'); return false;">
+                <button class="open-button" onclick="openWorkbook(); return false;">
                     Open Workbook →
                 </button>
             </div>
@@ -227,31 +227,24 @@
     </div>
 
     <script>
-        function openWorkbook(filename) {
-            // Создаем объект запроса для проверки существования файла
-            fetch(filename, { method: 'HEAD' })
-                .then(response => {
-                    if (response.ok) {
-                        // Файл существует - открываем его
-                        window.open(filename, '_blank');
-                    } else {
-                        // Файл не найден - показываем сообщение
-                        throw new Error(`File not found: ${filename}`);
-                    }
-                })
-                .catch(error => {
-                    // Показываем подробное сообщение об ошибке
-                    alert(`
-                        ❌ Ошибка при открытии файла!
-                        
-                        Детали:
-                        • Файл "${filename}" не найден
-                        • Убедитесь, что файл находится в той же папке, что и index.html
-                        • Проверьте правильность названия файла (регистр букв важен!)
-                        
-                        Пожалуйста, скачайте рабочую тетрадь или свяжитесь с администратором.
-                    `);
-                });
+        function openWorkbook() {
+            // Путь к вашему файлу относительно текущей страницы
+            const filePath = './1.2 Saroo.html';
+            
+            // Проверяем, можно ли открыть файл
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.target = '_blank';
+            
+            // Пытаемся имитировать клик по ссылке
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Альтернативный способ через window.open
+            setTimeout(() => {
+                window.open(filePath, '_blank');
+            }, 100);
         }
         
         // Добавляем интерактивные эффекты
